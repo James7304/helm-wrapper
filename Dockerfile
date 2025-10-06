@@ -13,8 +13,8 @@ COPY bin/helm-wrapper /helm-wrapper
 # Ensure the binary is executable
 RUN chmod +x /helm-wrapper
 
-# Optionally copy a default config file
-# COPY config-example.yaml /config.yaml
+# Copy a default config file
+COPY config-example.yaml /config.yaml
 
 # Run the binary
 ENTRYPOINT ["/helm-wrapper"]
