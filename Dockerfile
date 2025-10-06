@@ -16,5 +16,8 @@ RUN chmod +x /helm-wrapper
 # Copy a default config file
 COPY config-example.yaml /config.yaml
 
+# Expose the port
+EXPOSE 8080
+
 # Run the binary
 ENTRYPOINT ["/helm-wrapper"]
