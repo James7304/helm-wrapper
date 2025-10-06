@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -17,22 +20,15 @@ jobs:
       - name: Build
         run: make build
 
-      - name: Get dependencies
-        run: |
-            go get -v -t -d ./...
-            if [ -f Gopkg.toml ]; then
-                curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-                dep ensure
-            fi
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
         uses: docker/build-push-action@v6
@@ -40,5 +36,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/helm-wrapper:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/helm-wrapper:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/helm-wrapper:latest
+            ghcr.io/${{ github.repository_owner }}/helm-wrapper:${{ github.sha }}

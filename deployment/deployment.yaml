@@ -22,7 +22,7 @@ spec:
     spec:
       serviceAccountName: helm-wrapper
       containers:
-        - image: <image>
+        - image: docker.io/james7304/helm-wrapper:b3b4474fd8b44bbc0227a1128116cec0c80ef3c1
           imagePullPolicy: IfNotPresent
           name: helm-wrapper
           readinessProbe:
