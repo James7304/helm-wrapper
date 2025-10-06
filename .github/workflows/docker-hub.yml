@@ -36,5 +36,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/helm-wrapper:latest
-            ghcr.io/${{ github.repository_owner }}/helm-wrapper:${{ github.sha }}
+            ghcr.io/${{ secrets.DOCKER_USERNAME }}/helm-wrapper:latest
+            ghcr.io/${{ secrets.DOCKER_USERNAME }}/helm-wrapper:${{ github.sha }}
